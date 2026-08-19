@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="medicationsideeffects-2026-08-create-medication_side_effect" author="druchniewicz">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="medication_side_effect"/>
+            </not>
+        </preConditions>
+        <comment>Create the medication_side_effect table (side effects linked to Drug records).</comment>
+        <createTable tableName="medication_side_effect">
+            <column name="medication_side_effect_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="drug_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="classification" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="side_effect_concept_id" type="INT"/>
+            <column name="side_effect_text" type="VARCHAR(1024)"/>
+            <column name="recommended_action" type="TEXT"/>
+            <column name="notes" type="TEXT"/>
+            <column name="creator" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="INT"/>
+            <column name="date_changed" type="DATETIME"/>
+            <column name="voided" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="INT"/>
+            <column name="date_voided" type="DATETIME"/>
+            <column name="void_reason" type="VARCHAR(255)"/>
+            <column name="uuid" type="VARCHAR(38)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="medication_side_effect_drug_fk"
+            baseTableName="medication_side_effect" baseColumnNames="drug_id"
+            referencedTableName="drug" referencedColumnNames="drug_id"/>
+        <addForeignKeyConstraint constraintName="medication_side_effect_concept_fk"
+            baseTableName="medication_side_effect" baseColumnNames="side_effect_concept_id"
+            referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="medication_side_effect_creator_fk"
+            baseTableName="medication_side_effect" baseColumnNames="creator"
+            referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="medication_side_effect_changed_by_fk"
+            baseTableName="medication_side_effect" baseColumnNames="changed_by"
+            referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="medication_side_effect_voided_by_fk"
+            baseTableName="medication_side_effect" baseColumnNames="voided_by"
+            referencedTableName="users" referencedColumnNames="user_id"/>
+
+        <createIndex tableName="medication_side_effect" indexName="medication_side_effect_drug_idx">
+            <column name="drug_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

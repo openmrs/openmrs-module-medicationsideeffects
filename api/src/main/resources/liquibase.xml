@@ -35,8 +35,8 @@
             </column>
             <column name="side_effect_concept_id" type="INT"/>
             <column name="side_effect_text" type="VARCHAR(1024)"/>
-            <column name="recommended_action" type="TEXT"/>
-            <column name="notes" type="TEXT"/>
+            <column name="recommended_action" type="VARCHAR(1024)"/>
+            <column name="notes" type="VARCHAR(1024)"/>
             <column name="creator" type="INT">
                 <constraints nullable="false"/>
             </column>

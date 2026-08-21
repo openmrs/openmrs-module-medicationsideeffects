@@ -38,9 +38,9 @@ public interface MedicationSideEffectService extends OpenmrsService {
 	
 	@Transactional
 	@Authorized(MedicationSideEffectsConstants.MANAGE_SIDE_EFFECTS_PRIVILEGE)
-	MedicationSideEffect save(MedicationSideEffect sideEffect);
+	MedicationSideEffect saveMedicationSideEffect(MedicationSideEffect sideEffect);
 	
 	@Transactional
 	@Authorized(MedicationSideEffectsConstants.MANAGE_SIDE_EFFECTS_PRIVILEGE)
-	MedicationSideEffect voidSideEffect(MedicationSideEffect sideEffect, String reason);
+	MedicationSideEffect voidMedicationSideEffect(MedicationSideEffect sideEffect, String reason);
 }

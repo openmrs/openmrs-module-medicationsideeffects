@@ -9,11 +9,11 @@
  */
 package org.openmrs.module.medicationsideeffects.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Drug;
-import org.openmrs.api.context.Context;
+import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.medicationsideeffects.dao.MedicationSideEffectDao;
 import org.openmrs.module.medicationsideeffects.model.MedicationSideEffect;
@@ -43,19 +43,15 @@ public class MedicationSideEffectServiceImpl extends BaseOpenmrsService implemen
 	}
 	
 	@Override
-	public MedicationSideEffect save(MedicationSideEffect sideEffect) {
+	public MedicationSideEffect saveMedicationSideEffect(MedicationSideEffect sideEffect) {
+		if (sideEffect.getSideEffectConcept() == null && StringUtils.isBlank(sideEffect.getSideEffectText())) {
+			throw new APIException("Either a side effect concept or side effect text is required.");
+		}
 		return dao.saveOrUpdate(sideEffect);
 	}
 	
 	@Override
-	public MedicationSideEffect voidSideEffect(MedicationSideEffect sideEffect, String reason) {
-		if (sideEffect == null || sideEffect.getVoided()) {
-			return sideEffect;
-		}
-		sideEffect.setVoided(true);
-		sideEffect.setVoidReason(reason);
-		sideEffect.setDateVoided(new Date());
-		sideEffect.setVoidedBy(Context.getAuthenticatedUser());
+	public MedicationSideEffect voidMedicationSideEffect(MedicationSideEffect sideEffect, String reason) {
 		return dao.saveOrUpdate(sideEffect);
 	}
 }

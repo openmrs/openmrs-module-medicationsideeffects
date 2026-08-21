@@ -64,7 +64,6 @@ public class MedicationSideEffectResource extends DelegatingCrudResource<Medicat
 			description.addProperty("classification");
 			description.addProperty("sideEffectText");
 			description.addProperty("recommendedAction");
-			description.addProperty("notes");
 			description.addProperty("drug", Representation.REF);
 			description.addProperty("sideEffectConcept", Representation.REF);
 			description.addProperty("voided");

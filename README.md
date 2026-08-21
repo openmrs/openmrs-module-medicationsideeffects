@@ -24,6 +24,10 @@ Table `medication_side_effect` (entity `MedicationSideEffect`, extends `BaseOpen
 
 At least one of `side_effect_concept_id` or `side_effect_text` must be present on each row.
 
+**Why link to `Drug` and not the drug concept?** This is deliberate. A record is attached to a specific
+`Drug` (formulation) rather than the underlying concept because side effects and their recommended
+actions can differ by formulation/route (e.g. an oral vs. an injectable form of the same molecule).
+
 ## REST API
 
 Read-only resource, discovered by the `webservices.rest` module. The only supported access pattern is
@@ -63,17 +67,17 @@ the service layer).
 ## Loading data
 
 Records are not authored through the REST API. They are loaded declaratively via the
-[Initializer](https://github.com/openmrs/openmrs-module-initializer) module's **`medicationsideeffects`**
-domain — a CSV placed in the Initializer configuration directory
-(`configuration/medicationsideeffects/medication_side_effects.csv`). See
-`docs/sample-configuration/` for an example and the Initializer domain documentation for the column
-reference.
+[Initializer](https://github.com/mekomsolutions/openmrs-module-initializer) module's
+**`medicationsideeffects`** domain — a CSV placed in the Initializer configuration directory
+(`configuration/medicationsideeffects/medication_side_effects.csv`). The full column reference, with a
+few example rows, lives in the Initializer domain documentation
+([`readme/medicationsideeffects.md`](https://github.com/mekomsolutions/openmrs-module-initializer/blob/main/readme/medicationsideeffects.md)).
 
 ## Requirements
 
 - OpenMRS Platform **2.4.0** or higher
 - `webservices.rest` module
-- `initializer` module (to load the CSV data)
+- [`initializer`](https://github.com/mekomsolutions/openmrs-module-initializer) module (to load the CSV data)
 
 ## Building
 

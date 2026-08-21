@@ -38,20 +38,20 @@ public class MedicationSideEffect extends BaseOpenmrsData {
 	private Drug drug;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "classification", nullable = false)
+	@Column(name = "classification", nullable = false, length = 50)
 	private SideEffectClassification classification;
 	
 	@ManyToOne
 	@JoinColumn(name = "side_effect_concept_id")
 	private Concept sideEffectConcept;
 	
-	@Column(name = "side_effect_text")
+	@Column(name = "side_effect_text", length = 1024)
 	private String sideEffectText;
 	
-	@Column(name = "recommended_action")
+	@Column(name = "recommended_action", length = 1024)
 	private String recommendedAction;
 	
-	@Column(name = "notes")
+	@Column(name = "notes", length = 1024)
 	private String notes;
 	
 	public MedicationSideEffect() {

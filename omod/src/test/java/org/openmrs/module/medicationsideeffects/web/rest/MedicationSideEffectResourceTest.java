@@ -10,7 +10,9 @@
 package org.openmrs.module.medicationsideeffects.web.rest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.when;
 
@@ -22,6 +24,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.openmrs.Concept;
 import org.openmrs.module.medicationsideeffects.model.MedicationSideEffect;
 import org.openmrs.module.medicationsideeffects.model.SideEffectClassification;
+import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
+import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
+import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 
 /**
  * Unit tests for the pure (Context-free) logic of {@link MedicationSideEffectResource}.
@@ -68,5 +73,24 @@ public class MedicationSideEffectResourceTest {
 	@Test
 	public void getClassification_shouldReturnNullWhenUnset() {
 		assertThat(resource.getClassification(new MedicationSideEffect()), is(nullValue()));
+	}
+	
+	@Test
+	public void getRepresentationDescription_defaultShouldPublishWhatTheFrontendReads() {
+		DelegatingResourceDescription rep = resource.getRepresentationDescription(new DefaultRepresentation());
+		
+		assertThat(rep.getProperties(), hasKey("uuid"));
+		assertThat(rep.getProperties(), hasKey("display"));
+		assertThat(rep.getProperties(), hasKey("classification"));
+		assertThat(rep.getProperties(), hasKey("recommendedAction"));
+		assertThat(rep.getProperties(), not(hasKey("notes")));
+	}
+	
+	@Test
+	public void getRepresentationDescription_fullShouldIncludeNotesAndAuditInfo() {
+		DelegatingResourceDescription rep = resource.getRepresentationDescription(new FullRepresentation());
+		
+		assertThat(rep.getProperties(), hasKey("notes"));
+		assertThat(rep.getProperties(), hasKey("auditInfo"));
 	}
 }

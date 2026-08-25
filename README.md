@@ -49,7 +49,6 @@ uuid (`GET /ws/rest/v1/medicationsideeffect/{uuid}`). The `default`/`ref` repres
       "classification": "COMMON",
       "sideEffectText": null,
       "recommendedAction": null,
-      "notes": "…",
       "drug": { "uuid": "…", "display": "Acetaminophen 325 mg" },
       "sideEffectConcept": { "uuid": "…", "display": "Nausea" },
       "voided": false
@@ -59,7 +58,9 @@ uuid (`GET /ws/rest/v1/medicationsideeffect/{uuid}`). The `default`/`ref` repres
 ```
 
 `display` resolves to the concept's display name when a coded concept is set, otherwise the free text.
-Creating, updating and deleting records over REST is not supported (the resource is read-only).
+The `full` representation additionally includes `notes` and `auditInfo`; `notes` is not served in the
+`default` or `ref` representations. Creating, updating and deleting records over REST is not supported
+(the resource is read-only).
 
 Privileges: `Get Medication Side Effects` (read) and `Manage Medication Side Effects` (write, used by
 the service layer).

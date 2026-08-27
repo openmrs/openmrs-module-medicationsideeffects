@@ -77,4 +77,23 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="medicationsideeffects-2026-08-grant-get-side-effects-privilege" author="druchniewicz">
+        <comment>
+            Grant 'Get Medication Side Effects' to every role that already holds 'Get Concepts', so the read
+            REST API works out of the box (anyone who can read a drug can read its side effects). Idempotent:
+            only roles that do not yet have the privilege are granted, so it is safe if some roles already have it.
+        </comment>
+        <sql>
+            INSERT INTO role_privilege (role, privilege)
+            SELECT DISTINCT rp.role, 'Get Medication Side Effects'
+            FROM role_privilege rp
+            WHERE rp.privilege = 'Get Concepts'
+              AND NOT EXISTS (
+                SELECT 1 FROM role_privilege existing
+                WHERE existing.role = rp.role
+                  AND existing.privilege = 'Get Medication Side Effects'
+              )
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

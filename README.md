@@ -63,7 +63,10 @@ The `full` representation additionally includes `notes` and `auditInfo`; `notes`
 (the resource is read-only).
 
 Privileges: `Get Medication Side Effects` (read) and `Manage Medication Side Effects` (write, used by
-the service layer).
+the service layer). On install, a Liquibase changeset grants `Get Medication Side Effects` to every role
+that already holds `Get Concepts`, so the read API works out of the box (anyone who can read a drug can
+read its side effects). `Manage Medication Side Effects` is not granted by default — data is loaded by
+Initializer (which runs with the necessary privileges); grant it explicitly to any other writer.
 
 ## Loading data
 

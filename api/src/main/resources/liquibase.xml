@@ -77,6 +77,22 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="medicationsideeffects-2026-09-add-get-side-effects-privilege" author="druchniewicz">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT count(*) FROM privilege WHERE privilege = 'Get Medication Side Effects';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Create the 'Get Medication Side Effects' privilege row before the grant changeset references it.
+        </comment>
+        <insert tableName="privilege">
+            <column name="privilege" value="Get Medication Side Effects"/>
+            <column name="description" value="Able to read medication side-effect records."/>
+            <column name="uuid" value="f2a7c4e0-6b1d-4e93-9a2c-0d5e8b3f7a10"/>
+        </insert>
+    </changeSet>
+
     <changeSet id="medicationsideeffects-2026-08-grant-get-side-effects-privilege" author="druchniewicz">
         <comment>
             Grant 'Get Medication Side Effects' to every role that already holds 'Get Concepts', so the read

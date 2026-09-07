@@ -19,6 +19,13 @@
 		<module>omod</module>
 	</modules>
 
+	<scm>
+		<connection>scm:git:git@github.com:openmrs/openmrs-module-medicationsideeffects.git</connection>
+		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-medicationsideeffects.git</developerConnection>
+		<url>https://github.com/openmrs/openmrs-module-medicationsideeffects</url>
+		<tag>HEAD</tag>
+	</scm>
+
 	<properties>
 		<openmrsPlatformVersion>2.4.0</openmrsPlatformVersion>
 		<webservicesRestVersion>2.50.0</webservicesRestVersion>

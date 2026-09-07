@@ -72,15 +72,19 @@ is loaded by Initializer, which runs with the necessary privileges.
 Records are not authored through the REST API. They are loaded declaratively via the
 [Initializer](https://github.com/mekomsolutions/openmrs-module-initializer) module's
 **`medicationsideeffects`** domain — a CSV placed in the Initializer configuration directory
-(`configuration/medicationsideeffects/medication_side_effects.csv`). The full column reference, with a
-few example rows, lives in the Initializer domain documentation
-([`readme/medicationsideeffects.md`](https://github.com/mekomsolutions/openmrs-module-initializer/blob/main/readme/medicationsideeffects.md)).
+(`configuration/medicationsideeffects/medication_side_effects.csv`). The domain is not part of a
+released Initializer yet — it is added by
+[Initializer PR #333](https://github.com/mekomsolutions/openmrs-module-initializer/pull/333), which also
+carries the full column reference and a few example rows in `readme/medicationsideeffects.md`.
 
 ## Requirements
 
 - OpenMRS Platform **2.4.0** or higher
 - `webservices.rest` module
-- [`initializer`](https://github.com/mekomsolutions/openmrs-module-initializer) module (to load the CSV data)
+- [`initializer`](https://github.com/mekomsolutions/openmrs-module-initializer) module, with the
+  `medicationsideeffects` domain, to load the CSV data (pending
+  [Initializer PR #333](https://github.com/mekomsolutions/openmrs-module-initializer/pull/333); the
+  required version will be named here once it is released)
 
 ## Building
 

@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.openmrs.maven.parents</groupId>
+		<artifactId>maven-parent-openmrs-module</artifactId>
+		<version>2.2.0</version>
+	</parent>
+
+	<groupId>org.openmrs.module</groupId>
+	<artifactId>medicationsideeffects</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Medication Side Effects</name>
+	<description>Structured medication side-effect metadata, exposed as a REST resource.</description>
+
+	<modules>
+		<module>api</module>
+		<module>omod</module>
+	</modules>
+
+	<scm>
+		<connection>scm:git:git@github.com:openmrs/openmrs-module-medicationsideeffects.git</connection>
+		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-medicationsideeffects.git</developerConnection>
+		<url>https://github.com/openmrs/openmrs-module-medicationsideeffects</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<properties>
+		<openmrsPlatformVersion>2.4.0</openmrsPlatformVersion>
+		<webservicesRestVersion>2.50.0</webservicesRestVersion>
+		<javaCompilerVersion>1.8</javaCompilerVersion>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>openmrs-repo</id>
+			<name>OpenMRS Nexus Repository</name>
+			<url>https://mavenrepo.openmrs.org/public</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>openmrs-repo</id>
+			<name>OpenMRS Nexus Repository</name>
+			<url>https://mavenrepo.openmrs.org/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.openmrs.api</groupId>
+				<artifactId>openmrs-api</artifactId>
+				<version>${openmrsPlatformVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.api</groupId>
+				<artifactId>openmrs-api</artifactId>
+				<version>${openmrsPlatformVersion}</version>
+				<classifier>tests</classifier>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.test</groupId>
+				<artifactId>openmrs-test</artifactId>
+				<version>${openmrsPlatformVersion}</version>
+				<type>pom</type>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.web</groupId>
+				<artifactId>openmrs-web</artifactId>
+				<version>${openmrsPlatformVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>webservices.rest-omod-common</artifactId>
+				<version>${webservicesRestVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<target>${javaCompilerVersion}</target>
+						<source>${javaCompilerVersion}</source>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

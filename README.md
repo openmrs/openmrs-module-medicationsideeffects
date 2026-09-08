@@ -63,9 +63,11 @@ The `full` representation additionally includes `notes` and `auditInfo`; `notes`
 (the resource is read-only).
 
 Privileges: `Get Medication Side Effects` (read) and `Manage Medication Side Effects` (write). The module
-declares both in `config.xml` but grants neither — distributions grant them to the appropriate roles. The
-reference application grants the read privilege to `Privilege Level: Full` and `Privilege Level: High`. Data
-is loaded by Initializer, which runs with the necessary privileges.
+declares both in `config.xml` but grants neither — distributions grant them to the appropriate roles. In the
+reference application that grant is added by
+[content PR #85](https://github.com/openmrs/openmrs-content-referenceapplication-demo/pull/85) and is not
+released yet; until it is, grant the read privilege yourself or `?drug=` returns 403 for every non-superuser.
+Data is loaded by Initializer, which runs with the necessary privileges.
 
 ## Loading data
 

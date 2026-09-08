@@ -45,14 +45,26 @@ public class ChangesetMatchesMappingTest extends BaseModuleContextSensitiveTest 
 		});
 		
 		Set<String> declared = new TreeSet<String>();
-		Element table = (Element) DocumentBuilderFactory.newInstance().newDocumentBuilder()
+		Element createTable = (Element) DocumentBuilderFactory.newInstance().newDocumentBuilder()
 		        .parse(getClass().getResourceAsStream("/liquibase.xml")).getElementsByTagName("createTable").item(0);
-		assertThat(table.getAttribute("tableName"), is("medication_side_effect"));
-		NodeList columns = table.getElementsByTagName("column");
-		for (int i = 0; i < columns.getLength(); i++) {
-			declared.add(((Element) columns.item(i)).getAttribute("name").toLowerCase());
+		assertThat(createTable.getAttribute("tableName"), is("medication_side_effect"));
+		collectColumnNames(createTable, declared);
+
+		NodeList addColumns = createTable.getOwnerDocument().getElementsByTagName("addColumn");
+		for (int i = 0; i < addColumns.getLength(); i++) {
+			Element addColumn = (Element) addColumns.item(i);
+			if ("medication_side_effect".equals(addColumn.getAttribute("tableName"))) {
+				collectColumnNames(addColumn, declared);
+			}
 		}
 		
 		assertThat(declared, is(mapped));
+	}
+	
+	private void collectColumnNames(Element change, Set<String> into) {
+		NodeList columns = change.getElementsByTagName("column");
+		for (int i = 0; i < columns.getLength(); i++) {
+			into.add(((Element) columns.item(i)).getAttribute("name").toLowerCase());
+		}
 	}
 }

@@ -49,7 +49,7 @@ public class ChangesetMatchesMappingTest extends BaseModuleContextSensitiveTest 
 		        .parse(getClass().getResourceAsStream("/liquibase.xml")).getElementsByTagName("createTable").item(0);
 		assertThat(createTable.getAttribute("tableName"), is("medication_side_effect"));
 		collectColumnNames(createTable, declared);
-
+		
 		NodeList addColumns = createTable.getOwnerDocument().getElementsByTagName("addColumn");
 		for (int i = 0; i < addColumns.getLength(); i++) {
 			Element addColumn = (Element) addColumns.item(i);

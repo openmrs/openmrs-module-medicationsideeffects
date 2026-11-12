@@ -32,13 +32,20 @@ public class MedicationSideEffectControllerTest extends RestControllerTestUtils 
 	
 	@Before
 	public void setUpData() {
-		drug = Context.getConceptService().getAllDrugs(false).get(0);
+		List<Drug> drugs = Context.getConceptService().getAllDrugs(false);
+		drug = drugs.get(0);
 		MedicationSideEffect sideEffect = new MedicationSideEffect();
 		sideEffect.setDrug(drug);
 		sideEffect.setClassification(SideEffectClassification.COMMON);
 		sideEffect.setSideEffectText("Nausea");
 		sideEffect.setRecommendedAction("Take with food");
 		Context.getService(MedicationSideEffectService.class).saveMedicationSideEffect(sideEffect);
+		
+		MedicationSideEffect otherDrugSideEffect = new MedicationSideEffect();
+		otherDrugSideEffect.setDrug(drugs.get(1));
+		otherDrugSideEffect.setClassification(SideEffectClassification.SERIOUS);
+		otherDrugSideEffect.setSideEffectText("Rash");
+		Context.getService(MedicationSideEffectService.class).saveMedicationSideEffect(otherDrugSideEffect);
 		Context.flushSession();
 	}
 	

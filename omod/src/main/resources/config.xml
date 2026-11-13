@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
+<module configVersion="1.6">
+	
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${MODULE_PACKAGE}</package>
+	<author>SolDevelo</author>
+	<description>${project.parent.description}</description>
+
+	<activator>org.openmrs.module.medicationsideeffects.MedicationSideEffectsActivator</activator>
+
+	<require_version>2.4.0</require_version>
+
+	<require_modules>
+		<require_module>org.openmrs.module.webservices.rest</require_module>
+	</require_modules>
+
+	<privileges>
+		<privilege>
+			<name>Get Medication Side Effects</name>
+			<description>Able to read medication side-effect records.</description>
+		</privilege>
+		<privilege>
+			<name>Manage Medication Side Effects</name>
+			<description>Able to create, update and void medication side-effect records.</description>
+		</privilege>
+	</privileges>
+
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+
+	<packagesWithMappedClasses>
+		org.openmrs.module.medicationsideeffects.model
+	</packagesWithMappedClasses>
+
+</module>
